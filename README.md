@@ -1,4 +1,4 @@
-#Grainy JS
+# Grainy JS
 A customizable static/noise generator using Javascript with HTML canvas. 
 
 
