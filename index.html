@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,html { 
+            margin: 0;
+            padding: 0;
+        }
+        #grains {
+            
+            width: 100%;
+            height: 82.5vh;
+            margin: 0;
+            background-color: black;
+        } 
+        #interactions { 
+            position: absolute;
+            left: 10px;
+            bottom: 2rem;
+            background-color: rgba(255, 255,255, 0.9);
+            padding: 20px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+        #interactions input, label { 
+            width: 90%;
+        }
+        #interactions input { 
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="grains">
+
+    </div>
+
+    <section id="interactions">
+        <label for="grainOpacity">Opacity</label>
+        <input type="range" name="grainOpacity" id="grainOpacity" value="0.01" min="0.01" max="1" step="0.01">
+        <label for="xGrains">X Grains</label>
+        <input type="range" name="xGrains" id="xGrains" value="2" min="2" max="300" step="1">
+        <label for="yGrains">Y Grains</label>
+        <input type="range" name="yGrains" id="yGrains" value="3" min="3" max="300" step="1">
+
+
+
+    </section>
+
+    <script src="/src/noisyCanvas.js"></script>
+    <script>
+        let opacity = 0.01
+        let container = document.querySelector("#grains")
+        let granularity = [5,5]
+        let colors = ["#ff00ff","#ff0000","#ffff00","#00ffff"]
+        let noiseMachine = createNoisyCanvas(container,opacity,...granularity,colors)
+        
+        const opacitySlider = document.querySelector("#grainOpacity")
+        const xGrainSlider = document.querySelector("#xGrains")
+        const yGrainSlider = document.querySelector("#yGrains")
+        
+        function rerender(){
+            noiseMachine.destroy()
+            noiseMachine = createNoisyCanvas(container,opacity,...granularity,colors)
+        }
+        
+
+        opacitySlider.addEventListener("change",(e)=>{
+            opacity = Number(opacitySlider.value)
+            rerender()
+        })
+
+        xGrainSlider.addEventListener("change",(e)=>{
+            granularity[0] = Number(xGrainSlider.value)
+            rerender()
+        })
+        yGrainSlider.addEventListener("change",(e)=>{
+            granularity[1] = Number(yGrainSlider.value)
+            rerender()
+        })
+
+    </script>
+</body>
+</html>
